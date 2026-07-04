@@ -37,7 +37,7 @@ A premium, fully responsive landing page for a luxury hotel. Built with **Vanill
 
 ## 🚀 Live Demo
 
-**[View Live Demo]()**
+**[View Live Demo](https://daviiliev.github.io/Aurom-Luxury-Hotel/)**
 
 ---
 
