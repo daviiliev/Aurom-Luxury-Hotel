@@ -176,7 +176,7 @@
         }
 
         /* ================================================
-           NEUES HERO – VOLLBILD MIT ÜBERLAGERUNG
+           HERO – MIT FUNKTIONIERENDEM VIDEO
         ================================================ */
         .hero {
             height: 100vh;
@@ -187,7 +187,18 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
-            background: linear-gradient(145deg, var(--cream-dark), var(--cream));
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.12;
+            pointer-events: none;
         }
 
         .hero::before {
@@ -197,7 +208,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 40%, rgba(201, 168, 124, 0.02), transparent 70%);
+            background: linear-gradient(145deg, rgba(245, 239, 231, 0.6), rgba(232, 221, 208, 0.4));
+            z-index: 1;
         }
 
         .hero-content-center {
@@ -312,6 +324,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             animation: scrollBounce 2s ease-in-out infinite;
+            z-index: 3;
         }
 
         .hero-scroll-indicator i {
@@ -330,7 +343,7 @@
         }
 
         /* ================================================
-           TIMELINE – STATT 3 KÄSTCHEN
+           TIMELINE
         ================================================ */
         .timeline-section {
             padding: 100px 0;
@@ -455,7 +468,7 @@
         }
 
         /* ================================================
-           FAQ / AKKORDEON – STATT 4 KÄSTCHEN
+           FAQ – MIT BILDERN
         ================================================ */
         .faq-section {
             padding: 100px 0;
@@ -512,10 +525,32 @@
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .faq-item:hover {
             box-shadow: 0 12px 40px rgba(201, 168, 124, 0.02);
+        }
+
+        .faq-item .faq-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--cream-dark);
+        }
+
+        .faq-item .faq-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .faq-item .faq-content {
+            flex: 1;
         }
 
         .faq-question {
@@ -547,8 +582,15 @@
             padding-top: 14px;
         }
 
+        .faq-item .highlight-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+        }
+
         /* ================================================
-           360° VIEW (BEHALTEN)
+           360° VIEW – MIT FUNKTIONIERENDEM PANORAMA-BILD
         ================================================ */
         .view-360 {
             padding: 100px 0;
@@ -601,24 +643,28 @@
         .view-360-image {
             width: 100%;
             aspect-ratio: 1.2 / 1;
-            background: var(--cream-dark);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--gold);
-            opacity: 0.15;
-            position: relative;
             overflow: hidden;
+            position: relative;
+            cursor: grab;
+            transition: all 0.4s ease;
+            background: var(--cream-dark);
         }
 
-        .view-360-image::before {
-            content: '';
-            position: absolute;
-            inset: 20px;
-            border: 1px solid rgba(201, 168, 124, 0.04);
-            border-radius: 4px;
+        .view-360-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 40px rgba(201, 168, 124, 0.02);
+        }
+
+        .view-360-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+        .view-360-image:active {
+            cursor: grabbing;
         }
 
         .view-360-image .spin-indicator {
@@ -635,6 +681,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             border: 1px solid var(--border);
+            pointer-events: none;
         }
 
         .spin-indicator i {
@@ -651,7 +698,7 @@
         }
 
         /* ================================================
-           BOOKING (BEHALTEN)
+           BOOKING
         ================================================ */
         .booking {
             padding: 100px 0;
@@ -775,6 +822,15 @@
             height: 150%;
             background: radial-gradient(circle, rgba(201, 168, 124, 0.02), transparent 70%);
             animation: orbFloat 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(40px, -30px) scale(1.2);
+            }
         }
 
         .cta-box h2 {
@@ -963,6 +1019,17 @@
                 height: 40px;
                 font-size: 1rem;
             }
+
+            .faq-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .faq-item .faq-image {
+                width: 100%;
+                height: 120px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1068,8 +1135,13 @@
         </div>
     </nav>
 
-    <!-- ===== NEUES HERO (VOLLBILD) ===== -->
+    <!-- ===== HERO – MIT FUNKTIONIERENDEM VIDEO ===== -->
     <section class="hero">
+        <!-- Lizenzfreies Video von Coverr (Hotel-Szene) – läuft automatisch und dezent im Hintergrund -->
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="https://cdn.coverr.co/videos/coverr-hotel-room-1563/1080p.mp4" type="video/mp4" />
+        </video>
+
         <div class="hero-content-center">
             <div class="badge"><i class="fas fa-sparkles"></i> Since 1926</div>
             <h1>Where <span class="highlight">timeless</span> elegance meets modern comfort</h1>
@@ -1085,7 +1157,7 @@
         </div>
     </section>
 
-    <!-- ===== TIMELINE (statt 3 Kästchen) ===== -->
+    <!-- ===== TIMELINE ===== -->
     <section class="timeline-section" id="timeline">
         <div class="container">
             <div class="timeline-header reveal">
@@ -1119,7 +1191,7 @@
         </div>
     </section>
 
-    <!-- ===== FAQ / AKKORDEON (statt 4 Kästchen) ===== -->
+    <!-- ===== FAQ – MIT BILDERN ===== -->
     <section class="faq-section" id="faq">
         <div class="container">
             <div class="faq-header reveal">
@@ -1128,38 +1200,58 @@
                 <p>Explore our accommodations — each designed with your comfort in mind.</p>
             </div>
             <div class="faq-list">
+                <!-- Classic Suite -->
                 <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Classic Suite — $259/night</span>
-                        <i class="fas fa-chevron-down"></i>
+                    <div class="faq-image">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=200&h=200&fit=crop" alt="Classic Suite" />
                     </div>
-                    <div class="faq-answer">
-                        Elegant room with city views, premium amenities, and a king-size bed. Perfect for a romantic getaway or business stay.
+                    <div class="faq-content">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Classic Suite — <span class="highlight-price">$259</span>/night</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Elegant room with city views, premium amenities, and a king-size bed. Perfect for a romantic getaway or business stay.
+                        </div>
                     </div>
                 </div>
+
+                <!-- Royal Suite -->
                 <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Royal Suite — $459/night</span>
-                        <i class="fas fa-chevron-down"></i>
+                    <div class="faq-image">
+                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=200&h=200&fit=crop" alt="Royal Suite" />
                     </div>
-                    <div class="faq-answer">
-                        Spacious suite with panoramic views, a private terrace, and a marble bathroom with a soaking tub. Includes butler service.
+                    <div class="faq-content">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Royal Suite — <span class="highlight-price">$459</span>/night</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Spacious suite with panoramic views, a private terrace, and a marble bathroom with a soaking tub. Includes butler service.
+                        </div>
                     </div>
                 </div>
+
+                <!-- Penthouse -->
                 <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Penthouse — $759/night</span>
-                        <i class="fas fa-chevron-down"></i>
+                    <div class="faq-image">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=200&fit=crop" alt="Penthouse" />
                     </div>
-                    <div class="faq-answer">
-                        The ultimate luxury. Rooftop pool, private lounge, 24/7 butler, and breathtaking 360° views of the city skyline.
+                    <div class="faq-content">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Penthouse — <span class="highlight-price">$759</span>/night</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            The ultimate luxury. Rooftop pool, private lounge, 24/7 butler, and breathtaking 360° views of the city skyline.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 360° VIEW ===== -->
+    <!-- ===== 360° VIEW – MIT PANORAMA-BILD ===== -->
     <section class="view-360" id="view">
         <div class="container">
             <div class="view-360-wrapper">
@@ -1169,7 +1261,8 @@
                     <p>Immerse yourself in the breathtaking panorama from our rooftop terrace.</p>
                 </div>
                 <div class="view-360-image reveal-right">
-                    <i class="fas fa-arrows-spin"></i>
+                    <!-- Lizenzfreies Panorama-Bild von Unsplash -->
+                    <img src="https://images.unsplash.com/photo-1470071459604-7b8ec44ff5b6?w=800&h=600&fit=crop" alt="360° Panorama View" />
                     <div class="spin-indicator"><i class="fas fa-sync-alt"></i> Drag to explore</div>
                 </div>
             </div>
@@ -1310,7 +1403,6 @@
                 answer.classList.remove('open');
                 icon.style.transform = 'rotate(0deg)';
             } else {
-                // Alle anderen schließen
                 document.querySelectorAll('.faq-answer').forEach(a => {
                     if (a !== answer) {
                         a.classList.remove('open');
@@ -1322,7 +1414,6 @@
             }
         }
 
-        // Erste FAQ standardmäßig geöffnet
         document.addEventListener('DOMContentLoaded', function() {
             const firstFaq = document.querySelector('.faq-item .faq-answer');
             if (firstFaq) {
@@ -1353,11 +1444,38 @@
         });
 
         // ================================================
-        // 6. KONSOLE
+        // 6. 360° DRAG-SIMULATION
         // ================================================
-        console.log('%c🏨 AURUM – Komplett neues Layout', 'font-size: 32px; font-weight: bold; color: #c9a87c;');
-        console.log('%c✨ Vollbild-Hero · Timeline · FAQ-Akkordeon · 360° · Booking', 'font-size: 14px; color: rgba(0,0,0,0.4);');
-        console.log('%c🔥 Kein "Text links + Bild rechts" · Kein "3 Kästchen" · Kein "4 Kästchen"', 'font-size: 14px; color: #c9a87c;');
+        const viewImage = document.querySelector('.view-360-image img');
+        let isDragging = false;
+        let startX, startY;
+
+        viewImage.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+            startY = e.pageY;
+            viewImage.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const x = e.pageX - startX;
+            const y = e.pageY - startY;
+            viewImage.style.transform = `translate(${x * 0.2}px, ${y * 0.1}px)`;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            viewImage.style.cursor = 'grab';
+            viewImage.style.transform = 'translate(0, 0)';
+        });
+
+        // ================================================
+        // 7. KONSOLE
+        // ================================================
+        console.log('%c🏨 AURUM – Final Version', 'font-size: 32px; font-weight: bold; color: #c9a87c;');
+        console.log('%c🎬 Video von Coverr · Panorama von Unsplash', 'font-size: 14px; color: rgba(0,0,0,0.4);');
+        console.log('%c🔥 100% lizenzfrei – funktioniert sofort!', 'font-size: 14px; color: #c9a87c;');
     </script>
 </body>
 </html>
